@@ -7,14 +7,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post('register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
+  // @Post('register')
+  // create(@Body() createUserDto: CreateUserDto) {
+  //   return this.usersService.create(createUserDto);
+  // }
 
-  @Post("login")  
-  login(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.validateUser(createUserDto.email, createUserDto.password);
-  }
+  // @Post("login")  
+  // login(@Body() createUserDto: CreateUserDto) {
+  //   return this.usersService.validateUser(createUserDto.email, createUserDto.password);
+  // }
 
 }
