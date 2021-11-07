@@ -22,8 +22,8 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOneByEmail(email: string): Promise<UserDocument>{
-    var doc = await this.userModel.findOne({email: email});
+  async findOneByPhone(phone: string): Promise<UserDocument>{
+    var doc = await this.userModel.findOne({phone: phone});
     return doc;
   }
 

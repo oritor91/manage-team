@@ -12,7 +12,8 @@ export class AuthService {
     private jwtService: JwtService) {}
 
     async create(createUserDto: CreateUserDto) {
-      const user = await this.usersService.findOneByEmail(createUserDto.email)
+      console.log(createUserDto);
+      const user = await this.usersService.findOneByPhone(createUserDto.phone)
       if (!user){
         createUserDto['password'] = await bcrypt.hash(createUserDto.password, jwtConstants.saltOrRounds);
         return this.usersService.create(createUserDto);
@@ -20,8 +21,8 @@ export class AuthService {
       return null;
   }
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOneByEmail(username);
+  async validateUser(phone: string, pass: string): Promise<any> {
+    const user = await this.usersService.findOneByPhone(phone);
     if (user){
       const isMatch = await bcrypt.compare(pass, user.password);
       if (isMatch) {
@@ -38,6 +39,6 @@ export class AuthService {
   }
 
   makePayloadJwt(user: CreateUserDto) {
-    return {name: user.name, email: user.email}
+    return {name: user.name, phone: user.phone}
   } 
 }
