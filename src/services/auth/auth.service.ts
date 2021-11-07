@@ -12,7 +12,6 @@ export class AuthService {
     private jwtService: JwtService) {}
 
     async create(createUserDto: CreateUserDto) {
-      console.log(createUserDto);
       const user = await this.usersService.findOneByPhone(createUserDto.phone)
       if (!user){
         createUserDto['password'] = await bcrypt.hash(createUserDto.password, jwtConstants.saltOrRounds);
@@ -39,6 +38,6 @@ export class AuthService {
   }
 
   makePayloadJwt(user: CreateUserDto) {
-    return {name: user.name, phone: user.phone}
+    return {name: user.name, email: user.phone}
   } 
 }
