@@ -15,7 +15,9 @@ export class AuthService {
       const user = await this.usersService.findOneByPhone(createUserDto.phone)
       if (!user){
         createUserDto['password'] = await bcrypt.hash(createUserDto.password, jwtConstants.saltOrRounds);
-        return this.usersService.create(createUserDto);
+        var db_user = await this.usersService.create(createUserDto);
+        const token = await this.login(db_user);
+        return token;
       }
       return null;
   }
