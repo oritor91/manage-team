@@ -30,6 +30,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.2",
     "bcrypt": "^5.0.1",
+    "libphonenumber-js": "^1.9.42",
     "mongoose": "^6.0.12",
     "mysql2": "^2.3.2",
     "passport": "^0.4.1",
