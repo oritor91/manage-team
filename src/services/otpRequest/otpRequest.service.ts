@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateOtpRequestDto } from './dto/createOtpRequest.dto';
 
+const _MS_PER_MINUTE = 1000 * 60;
 
 @Injectable()
 export class OtpRequestService {
@@ -11,9 +12,29 @@ export class OtpRequestService {
         @InjectModel(OtpRequest.name) private otpRequestModel: Model<OtpRequestDocument>
       ) {}
     
-    add_otprequest_record(createOtpRequest: CreateOtpRequestDto){
+    async add_otprequest_record(createOtpRequest: CreateOtpRequestDto){
         const createdOtpRequest = new this.otpRequestModel(createOtpRequest);
         console.log(createdOtpRequest);
         return createdOtpRequest.save();
+    }
+
+    async validate_otp_record(phone: string, code: Number){
+        console.log(phone);
+        const doc = await this.otpRequestModel.findOne({phone: phone});
+        const currentTime = new Date().getTime();
+        const diff = this.dateDiffInMinutes(doc['expiryTime'], currentTime);
+        console.log(diff);
+        if (diff > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    dateDiffInMinutes(a, b) {
+        // Discard the time and time-zone information.
+        const diff_in_minutes = (a - b) / (1000 * 60);
+        return Math.floor(diff_in_minutes);
     }
 }

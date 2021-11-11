@@ -39,7 +39,7 @@ export class AuthService {
     console.log(currentDate);
     const expiryTime = new Date(currentDate.getTime() + 15*60000);
     console.log(expiryTime);
-    const otpRequest = {"phone": phone, "code": val, "expiryTime": expiryTime};
+    const otpRequest = {"phone": phone, "code": 1111, "expiryTime": expiryTime};
     console.log("generated otp code: " + val);
     return otpRequest;
   }
