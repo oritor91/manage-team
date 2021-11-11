@@ -14,22 +14,20 @@ export class OtpRequestService {
     
     async add_otprequest_record(createOtpRequest: CreateOtpRequestDto){
         const createdOtpRequest = new this.otpRequestModel(createOtpRequest);
-        console.log(createdOtpRequest);
         return createdOtpRequest.save();
     }
 
     async validate_otp_record(phone: string, code: Number){
-        console.log(phone);
         const doc = await this.otpRequestModel.findOne({phone: phone});
-        const currentTime = new Date().getTime();
-        const diff = this.dateDiffInMinutes(doc['expiryTime'], currentTime);
-        console.log(diff);
-        if (diff > 0){
-            return true;
+        if (doc){
+            const currentTime = new Date();
+            const diff = this.dateDiffInMinutes(doc['expiryTime'], currentTime);
+            if (diff > 0 && code === doc['code']){
+                console.log("code match!");
+                return true;
+            }
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     dateDiffInMinutes(a, b) {

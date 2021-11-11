@@ -14,11 +14,11 @@ export class User {
   @Prop({required: true})
   phone: string;
 
-  @Prop()
+  @Prop({required: true, default: false})
   selfRegistered: boolean;
 
   @Prop()
-  lastLogin: string;
+  lastLogin: Date;
 
 }
 

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from '../../schemas/user/user.schema';
+import { parsePhoneNumber } from 'libphonenumber-js';
 
 
 
@@ -14,6 +15,9 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    createUserDto['phone'] = String(parsePhoneNumber(createUserDto['phone'], 'IL').number);
+    createUserDto['selfRegistered'] = true;
+    createUserDto['lastLogin'] = new Date();
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }

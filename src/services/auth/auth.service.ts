@@ -3,7 +3,7 @@ import { UsersService } from '../users/users.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UserDocument } from 'src/schemas/user/user.schema';
-import { E164Number, parsePhoneNumber } from 'libphonenumber-js';
+import { parsePhoneNumber } from 'libphonenumber-js';
 import { OtpRequestService } from '../otpRequest/otpRequest.service';
 
 
@@ -14,7 +14,7 @@ export class AuthService {
     private jwtService: JwtService) {}
 
     async create(createUserDto: CreateUserDto) {
-      console.log("in create");
+      this.usersService.create(createUserDto)
   }
 
   async validateUser(phone: string): Promise<any> {
@@ -36,10 +36,8 @@ export class AuthService {
   create_otprequest_object(phone: string){
     var val = Math.floor(1000 + Math. random() * 9000);
     var currentDate = new Date();
-    console.log(currentDate);
     const expiryTime = new Date(currentDate.getTime() + 15*60000);
-    console.log(expiryTime);
-    const otpRequest = {"phone": phone, "code": 1111, "expiryTime": expiryTime};
+    const otpRequest = {"phone": phone, "code": val, "expiryTime": expiryTime};
     console.log("generated otp code: " + val);
     return otpRequest;
   }

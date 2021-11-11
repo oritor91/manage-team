@@ -1,6 +1,8 @@
 
 export class CreateUserDto {
     name: string;
-    phone: string;
     email: string;
+    phone: string;
+    selfRegistered: boolean;
+    lastLogin: Date;
 }
