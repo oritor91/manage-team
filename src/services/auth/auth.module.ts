@@ -7,11 +7,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from '../guards/jwt.strategy';
 import { jwtConstants } from './utils/constant';
 import { AuthController } from './auth.controller';
+import { OtpRequestModule } from '../otpRequest/otpRequest.module';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
+    OtpRequestModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '6h' },

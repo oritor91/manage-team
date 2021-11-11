@@ -7,7 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     UsersModule,
-    MongooseModule.forRoot("mongodb+srv://orito:<pass>@cluster0.fdd0p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"), 
+    MongooseModule.forRoot("mongodb+srv://orito:0108Chica19@cluster0.fdd0p.mongodb.net/FootballApp?retryWrites=true&w=majority"), 
     AuthModule
   ],
   providers: [AppService],
