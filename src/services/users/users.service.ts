@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from '../../schemas/user/user.schema';
 import { parsePhoneNumber } from 'libphonenumber-js';
 
@@ -31,9 +30,13 @@ export class UsersService {
     return doc;
   }
 
-  async findOne(id: string): Promise<UserDocument>{
+  async findOne(id: string): Promise<Object>{
+    console.log("looking for user: " + id);
     var doc = await this.userModel.findOne({name: id});
-    return doc;
+    return {
+      "doc": doc,
+      "id": doc._id
+    };
   }
 
 }
